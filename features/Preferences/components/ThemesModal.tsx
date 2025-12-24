@@ -9,6 +9,7 @@ import {
   DialogHeader,
   DialogTitle
 } from '@/shared/components/ui/dialog';
+import { X } from 'lucide-react';
 import { createElement, useState } from 'react';
 
 interface ThemesModalProps {
@@ -31,11 +32,23 @@ export default function ThemesModal({ open, onOpenChange }: ThemesModalProps) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className='flex max-h-[85vh] w-[95vw] max-w-4xl flex-col gap-0 p-0 sm:max-h-[80vh] sm:w-[90vw]'>
-        <DialogHeader className='sticky top-0 z-10 border-b border-(--border-color) bg-(--background-color) px-6 pt-6 pb-4'>
+      <DialogContent
+        hideCloseButton
+        className='flex max-h-[85vh] w-[95vw] max-w-4xl flex-col gap-0 p-0 sm:max-h-[80vh] sm:w-[90vw]'
+      >
+        <DialogHeader className='sticky top-0 z-10 flex flex-row items-center justify-between rounded-t-2xl border-b-1 border-(--border-color) bg-(--background-color) px-6 pt-6 pb-4'>
           <DialogTitle className='text-2xl font-semibold text-(--main-color)'>
             Themes
           </DialogTitle>
+          <button
+            onClick={() => {
+              playClick();
+              onOpenChange(false);
+            }}
+            className='flex-shrink-0 rounded-xl p-2 transition-colors hover:cursor-pointer hover:bg-[var(--card-color)]'
+          >
+            <X size={24} className='text-[var(--secondary-color)]' />
+          </button>
         </DialogHeader>
         <div id='modal-scroll' className='flex-1 overflow-y-auto px-6 py-6'>
           <div className='space-y-6'>
@@ -57,13 +70,13 @@ export default function ThemesModal({ open, onOpenChange }: ThemesModalProps) {
                     return (
                       <div
                         key={theme.id}
-                        className='group relative cursor-pointer rounded-lg p-3 transition-all duration-200 hover:scale-105'
+                        className='group relative cursor-pointer rounded-lg p-3 transition-all duration-100'
                         style={{
                           backgroundColor: isHovered
                             ? theme.cardColor
                             : theme.backgroundColor,
                           border: isSelected
-                            ? `2px solid ${theme.mainColor}`
+                            ? `1px solid ${theme.mainColor}`
                             : `1px solid ${theme.borderColor}`
                         }}
                         onMouseEnter={() => setHoveredTheme(theme.id)}

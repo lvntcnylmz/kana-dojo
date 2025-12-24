@@ -787,7 +787,7 @@ const baseThemeSets: BaseThemeGroup[] = [
         secondaryColor: 'oklch(65.57% 0.2272 312.53 / 1)'
       },
       {
-        id: 'mariah-carey',
+        id: 'mariah',
         backgroundColor: 'oklch(18.5% 0.015 15.0 / 1)',
         mainColor: 'oklch(92.0% 0.045 95.0 / 1)',
         secondaryColor: 'oklch(64.0% 0.210 28.0 / 1)'
