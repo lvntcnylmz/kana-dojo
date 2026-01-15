@@ -7,7 +7,7 @@ on:
 permissions:
   issues: write
   pull-requests: read
-  contents: read
+  contents: write
 
 jobs:
   close-issue:
@@ -17,14 +17,21 @@ jobs:
     steps:
       - name: Checkout for templates
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Find and close related issue
+        id: close-issue
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
+            const fs = require('fs');
             const templates = require('./.github/templates/messages.cjs');
             const t = templates.prMerge.issueComment;
+
+            const themeBacklogPath = 'data/community/theme-backlog.json';
+            const factsBacklogPath = 'data/community/facts-backlog.json';
 
             const prTitle = context.payload.pull_request.title;
             const prTitleLower = prTitle.toLowerCase();
@@ -37,6 +44,7 @@ jobs:
 
             if (!isThemeContribution && !isFactContribution) {
               console.log('Not a community contribution PR, skipping');
+              core.setOutput('should_commit', 'false');
               return;
             }
 
@@ -102,6 +110,8 @@ jobs:
               }
             }
 
+            let needsCommit = false;
+
             if (targetIssue) {
               try {
                 await github.rest.issues.createComment({
@@ -123,9 +133,91 @@ jobs:
                 });
                 
                 console.log('Successfully closed issue #' + targetIssue);
+                
+                // Mark the item as permanently completed in the backlog
+                if (isThemeContribution) {
+                  const themes = JSON.parse(fs.readFileSync(themeBacklogPath, 'utf8'));
+                  // Try to find theme by PR title
+                  const patterns = [
+                    /add\s+(.+?)\s+theme/i,
+                    /theme[:\s]+(.+)/i,
+                    /feat\(theme\)[:\s]+add\s+(.+)/i
+                  ];
+                  let themeName = null;
+                  for (const pattern of patterns) {
+                    const match = prTitle.match(pattern);
+                    if (match) {
+                      themeName = match[1].trim().replace(/theme$/i, '').trim();
+                      break;
+                    }
+                  }
+                  if (themeName) {
+                    const themeIndex = themes.findIndex(function(th) {
+                      return th.name.toLowerCase() === themeName.toLowerCase();
+                    });
+                    if (themeIndex !== -1) {
+                      themes[themeIndex].completed = true;
+                      themes[themeIndex].completedBy = prAuthor;
+                      themes[themeIndex].completedPR = prNumber;
+                      fs.writeFileSync(themeBacklogPath, JSON.stringify(themes, null, 2));
+                      needsCommit = true;
+                      console.log('Marked theme "' + themeName + '" as completed');
+                    }
+                  }
+                } else if (isFactContribution) {
+                  const facts = JSON.parse(fs.readFileSync(factsBacklogPath, 'utf8'));
+                  const factIdMatch = prTitle.match(/#(\d+)/);
+                  if (factIdMatch) {
+                    const factId = parseInt(factIdMatch[1]);
+                    const factIndex = facts.findIndex(function(f) { return f.id === factId; });
+                    if (factIndex !== -1) {
+                      facts[factIndex].completed = true;
+                      facts[factIndex].completedBy = prAuthor;
+                      facts[factIndex].completedPR = prNumber;
+                      fs.writeFileSync(factsBacklogPath, JSON.stringify(facts, null, 2));
+                      needsCommit = true;
+                      console.log('Marked fact #' + factId + ' as completed');
+                    }
+                  }
+                }
               } catch (e) {
                 console.log('Error closing issue: ' + e.message);
               }
             } else {
               console.log('No matching issue found to close');
             }
+
+            core.setOutput('should_commit', needsCommit ? 'true' : 'false');
+
+      - name: Commit completion updates
+        if: steps.close-issue.outputs.should_commit == 'true'
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/community/
+
+          # Check if there are changes to commit
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+
+          git commit -m "chore(automation): mark contribution as completed"
+
+          # Pull with rebase and push with retry logic
+          MAX_RETRIES=3
+          for i in $(seq 1 $MAX_RETRIES); do
+            echo "Attempt $i of $MAX_RETRIES"
+            git pull --rebase origin main || git pull --rebase origin master || true
+            if git push; then
+              echo "Push successful!"
+              exit 0
+            fi
+            if [ $i -lt $MAX_RETRIES ]; then
+              echo "Push failed, retrying in 5 seconds..."
+              sleep 5
+            fi
+          done
+
+          echo "Failed to push after $MAX_RETRIES attempts"
+          exit 1

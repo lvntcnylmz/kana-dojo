@@ -11,13 +11,9 @@ module.exports = {
     // Labels applied to newly created community issues
     newIssue: [
       'good first issue',
-      // 'community',
-      // 'open-source',
+      'community',
       'hacktoberfest',
-      // 'javascript',
       'help wanted',
-
-      // 'enhancement'
       'easy',
       'up for grabs',
       'first timers only',
