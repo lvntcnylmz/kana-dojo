@@ -446,16 +446,18 @@ const WelcomeModal = () => {
                               </span>
                             )}
                           </div>
-                          <div className='flex gap-1.5'>
-                            <div
-                              className='h-4 w-4 rounded-full'
-                              style={{ background: theme.mainColor }}
-                            />
-                            <div
-                              className='h-4 w-4 rounded-full'
-                              style={{ background: theme.secondaryColor }}
-                            />
-                          </div>
+                          {!isChaosTheme && (
+                            <div className='flex gap-1.5'>
+                              <div
+                                className='h-4 w-4 rounded-full'
+                                style={{ background: theme.mainColor }}
+                              />
+                              <div
+                                className='h-4 w-4 rounded-full'
+                                style={{ background: theme.secondaryColor }}
+                              />
+                            </div>
+                          )}
                         </button>
                       );
                     })}
