@@ -1,4 +1,28 @@
 [
+ {
+  "id": "riverstone-gray",
+  "backgroundColor": "oklch(20.0% 0.010 260.0 / 1)",
+  "mainColor": "oklch(78.0% 0.020 90.0 / 1)",
+  "secondaryColor": "oklch(55.0% 0.035 240.0 / 1)"
+ },
+ {
+  "id": "city-rain",
+  "backgroundColor": "oklch(16.0% 0.030 260.0 / 1)",
+  "mainColor": "oklch(82.0% 0.085 220.0 / 1)",
+  "secondaryColor": "oklch(70.0% 0.145 330.0 / 1)"
+},
+ {
+  "id": "inkstone-blue",
+  "backgroundColor": "oklch(17.0% 0.020 255.0 / 1)",
+  "mainColor": "oklch(74.0% 0.060 230.0 / 1)",
+  "secondaryColor": "oklch(60.0% 0.085 280.0 / 1)"
+},
+ {
+  "id": "origami-crane",
+  "backgroundColor": "oklch(95.0% 0.008 90.0 / 1)",
+  "mainColor": "oklch(55.0% 0.220 25.0 / 1)",
+  "secondaryColor": "oklch(45.0% 0.150 20.0 / 1)"
+ },
   {
     "id": "riverstone-gray",
     "backgroundColor": "oklch(20.0% 0.010 260.0 / 1)",
