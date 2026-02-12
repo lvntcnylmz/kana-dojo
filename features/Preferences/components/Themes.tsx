@@ -172,7 +172,7 @@ const Themes = () => {
             </span> */}
           <fieldset
             className={clsx(
-              'grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4',
+              'grid grid-flow-row-dense grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4',
               'p-1', // Padding to prevent outline clipping
             )}
           >

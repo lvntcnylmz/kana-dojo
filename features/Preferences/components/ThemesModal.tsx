@@ -224,7 +224,7 @@ export default function ThemesModal({ open, onOpenChange }: ThemesModalProps) {
                         </span>
                       )}
                     </div>
-                    <div className='grid grid-cols-2 gap-3 p-1 sm:grid-cols-3 md:grid-cols-4'>
+                    <div className='grid grid-flow-row-dense grid-cols-2 gap-3 p-1 sm:grid-cols-3 md:grid-cols-4'>
                       {group.themes.map(theme => (
                         <ThemeCard
                           key={theme.id}
