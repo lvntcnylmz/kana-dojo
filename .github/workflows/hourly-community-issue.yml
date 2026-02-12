@@ -232,7 +232,7 @@ jobs:
               }
               
               // Check for duplicate theme issue
-              const duplicateTheme = await hasOpenIssueForQuery(`"Add New Color Theme:" "${item.name}"`);
+              const duplicateTheme = await hasOpenIssueForQuery(`"Color Theme" "${item.name}"`);
               
               if (duplicateTheme) {
                 console.log(`Issue already exists for theme "${item.name}": Marking as issued and skipping.`);
@@ -288,7 +288,7 @@ jobs:
               }
               
               // Check for duplicate fact issue
-              const duplicateFact = await hasOpenIssueForQuery(`"Add Japan Fact #${item.id}"`);
+              const duplicateFact = await hasOpenIssueForQuery(`"Fact about Japan" "${item.id}"`);
               
               if (duplicateFact) {
                 console.log(`Issue already exists for fact #${item.id}: Marking as issued and skipping.`);
@@ -349,7 +349,7 @@ jobs:
               }
               
               // Check for duplicate proverb issue
-              const duplicateProverb = await hasOpenIssueForQuery(`"Add Japanese Proverb #${item.id}"`);
+              const duplicateProverb = await hasOpenIssueForQuery(`"Japanese Proverb" "${item.id}"`);
               
               if (duplicateProverb) {
                 console.log(`Issue already exists for proverb #${item.id}: Marking as issued and skipping.`);
@@ -419,7 +419,7 @@ jobs:
                 continue;
               }
 
-              const duplicateTrivia = await hasOpenIssueForQuery(`"Add New Trivia Question #${item.id}"`);
+              const duplicateTrivia = await hasOpenIssueForQuery(`"Trivia Question" "${item.id}"`);
 
               if (duplicateTrivia) {
                 console.log(`Issue already exists for trivia #${item.id}: Marking as issued and skipping.`);
@@ -475,7 +475,7 @@ jobs:
                 continue;
               }
 
-              const duplicateGrammar = await hasOpenIssueForQuery(`"Add New Grammar Point #${item.id}"`);
+              const duplicateGrammar = await hasOpenIssueForQuery(`"Grammar Point" "${item.id}"`);
 
               if (duplicateGrammar) {
                 console.log(`Issue already exists for grammar #${item.id}: Marking as issued and skipping.`);
@@ -542,7 +542,7 @@ jobs:
                 continue;
               }
 
-              const duplicateQuote = await hasOpenIssueForQuery(`"Add Famous Anime Quote #${item.id}"`);
+              const duplicateQuote = await hasOpenIssueForQuery(`"Anime Quote" "${item.id}"`);
 
               if (duplicateQuote) {
                 console.log(`Issue already exists for anime quote #${item.id}: Marking as issued and skipping.`);
