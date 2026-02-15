@@ -179,7 +179,8 @@ export default function MasteryDistributionChart({
                               initial={{ opacity: 0 }}
                               animate={{ opacity: 1 }}
                               transition={{ delay: 0.8 + idx * 0.1 }}
-                              className='text-sm font-bold text-white/90'
+                              className='text-sm font-bold'
+                              style={{ color: 'var(--background-color)' }}
                             >
                               {percent.toFixed(0)}%
                             </motion.span>
