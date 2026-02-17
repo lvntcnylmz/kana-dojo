@@ -823,7 +823,7 @@
     ],
     "correctIndex": 0,
     "issued": false,
-    "completed": false
+    "completed": true
   },
   {
     "id": 60,
@@ -837,7 +837,7 @@
     ],
     "correctIndex": 0,
     "issued": false,
-    "completed": false
+    "completed": true
   },
   {
     "id": 61,
@@ -851,7 +851,7 @@
     ],
     "correctIndex": 0,
     "issued": false,
-    "completed": false
+    "completed": true
   },
   {
     "id": 62,
@@ -864,7 +864,7 @@
       "Aoi Matsuri"
     ],
     "correctIndex": 0,
-    "completed": false,
+    "completed": true,
     "issued": false
   },
   {
@@ -879,7 +879,7 @@
     ],
     "correctIndex": 0,
     "issued": false,
-    "completed": false
+    "completed": true
   },
   {
     "id": 64,
@@ -892,7 +892,7 @@
       "Ringgit"
     ],
     "correctIndex": 0,
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
