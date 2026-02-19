@@ -146,7 +146,7 @@
     "english": "This is my answer.",
     "game": "Final Fantasy X",
     "character": "Tidus",
-    "issued": false,
+    "issued": true,
     "completed": false
   },
   {
