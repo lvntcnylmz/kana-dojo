@@ -88,8 +88,8 @@ function EffectCard({
     <label
       className={clsx(
         isNoneCard
-          ? 'flex aspect-square flex-col items-center justify-center gap-1'
-          : 'relative aspect-square overflow-hidden',
+          ? 'flex h-20 flex-col items-center justify-center gap-1'
+          : 'relative h-20 overflow-hidden',
         buttonBorderStyles,
         'border-1 border-(--card-color)',
         'cursor-pointer px-2 py-2.5',
